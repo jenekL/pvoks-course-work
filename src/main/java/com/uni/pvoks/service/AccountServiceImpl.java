@@ -27,6 +27,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<Account> findAllByUser(Long userId) {
+        return accountRepository.findAllByUser_Id(userId);
+    }
+
+    @Override
     public Account findById(long id) {
         return accountRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(

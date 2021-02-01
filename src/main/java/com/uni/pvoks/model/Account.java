@@ -18,7 +18,7 @@ import java.util.Set;
 public class Account {
     @Id
     @GeneratedValue(generator = "accounts_id_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "accounts_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "accounts_id_seq", sequenceName = "accounts_id_seq", allocationSize = 1)
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -27,7 +27,7 @@ public class Account {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
     private final Set<Operation> operations = new HashSet<>();
 
     public Account() {

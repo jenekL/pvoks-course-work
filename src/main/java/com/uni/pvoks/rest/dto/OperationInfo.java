@@ -7,6 +7,7 @@ public class OperationInfo {
     private long accountId;
     private OperationType type;
     private long categoryId;
+    private String category;
     private double amount;
 
     public OperationInfo() {
@@ -42,6 +43,14 @@ public class OperationInfo {
 
     public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public double getAmount() {

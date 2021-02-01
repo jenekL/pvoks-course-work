@@ -9,6 +9,8 @@ import java.util.List;
 public interface OperationService {
     List<Operation> findAllByPage(PageRequest pageRequest);
 
+    List<Operation> findAllByAccount(Long accountId);
+
     Operation findById(long id);
 
     Operation save(OperationInfo operationInfo);

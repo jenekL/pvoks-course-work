@@ -9,6 +9,8 @@ import java.util.List;
 public interface CategoryService {
     List<Category> findAllByPage(PageRequest pageRequest);
 
+    List<Category> findAllByUser(Long userId);
+
     Category findById(long id);
 
     Category save(CategoryInfo categoryInfo);

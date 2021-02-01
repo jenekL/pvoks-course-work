@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProductService {
     List<Product> findAllByPage(PageRequest pageRequest);
 
+    List<Product> findAllByOperation(long operationId);
+
     Product findById(long id);
 
     Product save(ProductInfo productInfo);

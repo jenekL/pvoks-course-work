@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,13 +29,18 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("all")
-    public ResponseEntity<List<CategoryInfo>> getAllCategorysByPage(
+    public ResponseEntity<List<CategoryInfo>> getAllCategoriesByPage(
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
             @RequestParam(value = "sortField", defaultValue = "id") String sortField,
             @RequestParam(value = "sortDirection", defaultValue = "asc") String sortDirection) {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.fromString(sortDirection), sortField));
         return ResponseEntity.ok(mapToInfoList(categoryService.findAllByPage(pageRequest)));
+    }
+
+    @GetMapping("{userId}")
+    public ResponseEntity<List<CategoryInfo>> getCategoriesByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(mapToInfoList(categoryService.findAllByUser(userId)));
     }
 
     @PostMapping
@@ -45,7 +51,7 @@ public class CategoryController {
 
     @PutMapping("{id}")
     public ResponseEntity<CategoryInfo> updateCategory(@PathVariable Long id,
-                                                     @RequestBody CategoryInfo CategoryInfo) {
+                                                       @RequestBody CategoryInfo CategoryInfo) {
         Category updatedCategory = categoryService.update(id, CategoryInfo);
         return ResponseEntity.ok(mapToInfo(updatedCategory));
     }
@@ -60,7 +66,7 @@ public class CategoryController {
         CategoryInfo categoryInfo = new CategoryInfo();
         categoryInfo.setId(category.getId());
         categoryInfo.setTitle(category.getTitle());
-        categoryInfo.setUserId(category.getUser().getId());
+        Optional.ofNullable(category.getUser()).ifPresent(user->categoryInfo.setUserId(user.getId()));
         categoryInfo.setType(category.getType());
         return categoryInfo;
     }

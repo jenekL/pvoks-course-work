@@ -27,6 +27,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findAllByOperation(long operationId) {
+        return productRepository.findAllByOperation_Id(operationId);
+    }
+
+    @Override
     public Product findById(long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(

@@ -37,6 +37,11 @@ public class ProductController {
         return ResponseEntity.ok(mapToInfoList(productService.findAllByPage(pageRequest)));
     }
 
+    @GetMapping("operation/{operationId}")
+    public ResponseEntity<List<ProductInfo>> getProductsByOperation(@PathVariable Long operationId) {
+        return ResponseEntity.ok(mapToInfoList(productService.findAllByOperation(operationId)));
+    }
+
     @PostMapping
     public ResponseEntity<ProductInfo> createProduct(@RequestBody ProductInfo productInfo) {
         Product createdProduct = productService.save(productInfo);

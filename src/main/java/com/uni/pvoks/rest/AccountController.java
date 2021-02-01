@@ -37,6 +37,11 @@ public class AccountController {
         return ResponseEntity.ok(mapToInfoList(accountService.findAllByPage(pageRequest)));
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<AccountInfo>> getAllByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(mapToInfoList(accountService.findAllByUser(userId)));
+    }
+
     @PostMapping
     public ResponseEntity<AccountInfo> createAccount(@RequestBody AccountInfo accountInfo) {
         Account createdAccount = accountService.save(accountInfo);

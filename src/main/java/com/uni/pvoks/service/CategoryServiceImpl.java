@@ -1,6 +1,7 @@
 package com.uni.pvoks.service;
 
 import com.uni.pvoks.model.Category;
+import com.uni.pvoks.model.CategoryType;
 import com.uni.pvoks.model.User;
 import com.uni.pvoks.repository.CategoryRepository;
 import com.uni.pvoks.rest.dto.CategoryInfo;
@@ -27,6 +28,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> findAllByUser(Long userId) {
+        return categoryRepository.findAllByUser_IdOrType(userId, CategoryType.SYSTEM);
+    }
+
+    @Override
     public Category findById(long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(
@@ -35,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category save(CategoryInfo categoryInfo) {
-        User existingUser = userService.findById(categoryInfo.getId());
+        User existingUser = userService.findById(categoryInfo.getUserId());
 
         Category category = new Category();
         category.setTitle(categoryInfo.getTitle());

@@ -37,7 +37,7 @@ public class Operation {
 
     private double amount;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "operation")
     private final Set<Product> products = new HashSet<>();
 
     public Operation() {

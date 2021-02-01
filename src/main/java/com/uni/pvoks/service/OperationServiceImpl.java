@@ -32,6 +32,11 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
+    public List<Operation> findAllByAccount(Long accountId) {
+        return operationRepository.findAllByAccount_Id(accountId);
+    }
+
+    @Override
     public Operation findById(long id) {
         return operationRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(

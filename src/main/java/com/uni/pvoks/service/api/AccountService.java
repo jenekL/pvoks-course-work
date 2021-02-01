@@ -10,6 +10,8 @@ public interface AccountService {
 
     List<Account> findAllByPage(PageRequest pageRequest);
 
+    List<Account> findAllByUser(Long userId);
+
     Account findById(long id);
 
     Account save(AccountInfo accountInfo);
